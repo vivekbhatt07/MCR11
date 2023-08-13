@@ -25,6 +25,9 @@ const DataReducer = (state, action) => {
     case "SET_SEARCH": {
       return { ...state, searchText: action.payload };
     }
+    case "ADD_MOVIE": {
+      return { ...state, moviesList: [...state.moviesList, action.payload] };
+    }
   }
 };
 

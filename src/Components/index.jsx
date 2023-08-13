@@ -14,6 +14,7 @@ import Sidebar from "./Sidebar";
 import MoreCard from "./MoreCard";
 import Filter from "./Filter";
 import Card from "./Card";
+import Form from "./Form";
 export {
   ModalProvider,
   PageContainer,
@@ -29,4 +30,5 @@ export {
   MoreCard,
   Filter,
   Card,
+  Form,
 };
