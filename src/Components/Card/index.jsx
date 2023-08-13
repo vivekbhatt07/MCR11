@@ -18,6 +18,11 @@ const Card = (props) => {
   } = props;
 
   const { state, dispatch } = useData();
+
+  const isWatched = state.watchList.findIndex((current) => {
+    return current.id == id;
+  });
+
   return (
     <Link to={`/movies/${id}`}>
       <div className="p-4 border border-[#ddd] rounded-md flex flex-col gap-3">
@@ -52,15 +57,27 @@ const Card = (props) => {
               >
                 Star
               </ContainedActionBtn>
-              <ContainedActionBtn
-                handleClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  dispatch({ type: "ADD_TO_WATCH", payload: id });
-                }}
-              >
-                Add to Watchlist
-              </ContainedActionBtn>
+              {isWatched === -1 ? (
+                <ContainedActionBtn
+                  handleClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dispatch({ type: "ADD_TO_WATCH", payload: id });
+                  }}
+                >
+                  Add to Watchlist
+                </ContainedActionBtn>
+              ) : (
+                <ContainedActionBtn
+                  handleClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dispatch({ type: "REMOVE_FROM_WATCH", payload: id });
+                  }}
+                >
+                  Remove Watch List
+                </ContainedActionBtn>
+              )}
             </div>
           )}
         </div>
