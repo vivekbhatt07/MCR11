@@ -9,7 +9,7 @@ import {
 import { useData } from "../../Context";
 
 const Landing = () => {
-  const { state, dispatch } = useData();
+  const { state, dispatch, filteredMovieList } = useData();
 
   const gridStyle = {
     display: "grid",
@@ -29,7 +29,7 @@ const Landing = () => {
         </div>
 
         <ul style={gridStyle}>
-          {state.moviesList.map((currentMovie) => {
+          {filteredMovieList.map((currentMovie) => {
             return <Card key={currentMovie.id} {...currentMovie} />;
           })}
         </ul>
