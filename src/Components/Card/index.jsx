@@ -16,7 +16,7 @@ const Card = (props) => {
     imageURL,
   } = props;
   return (
-    <Link>
+    <Link to={`/movies/${id}`}>
       <div className="p-4 border border-[#ddd] rounded-md flex flex-col gap-3">
         <div className="h-[200px]">
           <img
