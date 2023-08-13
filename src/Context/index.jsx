@@ -54,6 +54,7 @@ const DataReducer = (state, action) => {
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DataReducer, InitialState);
 
+  console.log(state);
   const simpleStr = (str) => {
     return str.trim().split(" ").join("").toLowerCase();
   };

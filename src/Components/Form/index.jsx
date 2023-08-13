@@ -5,8 +5,11 @@ import {
   TextInputLabel,
   TextInput,
 } from "../../Components";
+import { Box, TextField } from "@mui/material";
+import { useData } from "../../Context";
 
 const Form = (props) => {
+  const { state, dispatch } = useData();
   const [formData, setFormData] = useState({
     movieTitle: "",
     movieSummary: "",
@@ -27,11 +30,11 @@ const Form = (props) => {
         id: uuidv4(),
         title: formData.movieTitle,
         year: formData.movieYear,
-        genre: formData.movieGenre,
+        genre: formData.movieGenre && formData.movieGenre.split(","),
         rating: formData.movieRating,
         director: formData.movieDirector,
         writer: formData.movieWriter,
-        cast: formData.movieCast,
+        cast: formData.movieCast && formData.movieCast.split(","),
         summary: formData.movieSummary,
         imageURL: formData.movieImg,
       },
@@ -48,13 +51,22 @@ const Form = (props) => {
   return (
     <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2">
       <div className="flex flex-col gap-2">
-        <TextInputLabel labelText="Title:">
-          <TextInput
-            inputType="text"
-            inputName="movieTitle"
-            inputHandle={handleInputChange}
-          />
-        </TextInputLabel>
+        <div className="flex gap-2">
+          <TextInputLabel labelText="Title:">
+            <TextInput
+              inputType="text"
+              inputName="movieTitle"
+              inputHandle={handleInputChange}
+            />
+          </TextInputLabel>
+          <TextInputLabel labelText="Writer:">
+            <TextInput
+              inputType="text"
+              inputName="movieWriter"
+              inputHandle={handleInputChange}
+            />
+          </TextInputLabel>
+        </div>
 
         <TextInputLabel labelText="Summary:">
           <textarea
@@ -63,7 +75,7 @@ const Form = (props) => {
             onChange={handleInputChange}
           />
         </TextInputLabel>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <TextInputLabel labelText="Year:">
             <TextInput
               inputType="number"
@@ -71,54 +83,48 @@ const Form = (props) => {
               inputHandle={handleInputChange}
             />
           </TextInputLabel>
-          <TextInputLabel labelText="Cast:">
-            <TextInput
-              inputType="text"
-              inputName="movieCast"
-              inputHandle={handleInputChange}
-            />
-          </TextInputLabel>
-          <TextInputLabel labelText="Genre:">
-            <TextInput
-              inputType="text"
-              inputName="movieGenre"
-              inputHandle={handleInputChange}
-            />
-          </TextInputLabel>
-        </div>
 
-        <select
-          defaultValue=""
-          //   value={state.rating}
-          className="border px-2 py-1 rounded-md border-[#aaa]"
-          onChange={handleInputChange}
-          name="movieRating"
-        >
-          <option value="">Rating</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+          <select
+            defaultValue=""
+            //   value={state.rating}
+            className="border px-2 py-1 rounded-md border-[#aaa]"
+            onChange={handleInputChange}
+            name="movieRating"
+          >
+            <option value="">Rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <TextInputLabel labelText="Cast:">
+          <TextInput
+            inputPlaceholder="Separate Cast Name by Comma ( , )"
+            inputType="text"
+            inputName="movieCast"
+            inputHandle={handleInputChange}
+          />
+        </TextInputLabel>
+        <TextInputLabel labelText="Genre:">
+          <TextInput
+            inputPlaceholder="Separate Genre by Comma ( , )"
+            inputType="text"
+            inputName="movieGenre"
+            inputHandle={handleInputChange}
+          />
+        </TextInputLabel>
 
         <TextInputLabel labelText="Director:">
           <TextInput
             inputType="text"
             inputName="movieDirector"
-            inputHandle={handleInputChange}
-          />
-        </TextInputLabel>
-
-        <TextInputLabel labelText="Writer:">
-          <TextInput
-            inputType="text"
-            inputName="movieWriter"
             inputHandle={handleInputChange}
           />
         </TextInputLabel>
