@@ -5,24 +5,15 @@ import { useData } from "../../Context";
 
 const Detail = () => {
   const { movieId } = useParams();
-  const { state } = useData();
-  console.log(state, movieId);
+  const { state, dispatch } = useData();
+
   const getMovie = state.moviesList.find((currentMovie) => {
     return currentMovie.id == movieId;
   });
 
-  // const {
-  //   id,
-  //   title,
-  //   year,
-  //   genre,
-  //   rating,
-  //   director,
-  //   writer,
-  //   cast,
-  //   summary,
-  //   imageURL,
-  // } = props;
+  const isWatched = state.watchList.findIndex((current) => {
+    return current.id == movieId;
+  });
 
   return (
     <PageContainer>
@@ -61,7 +52,27 @@ const Detail = () => {
           </div>
           <div className="flex gap-4">
             <ContainedActionBtn>Star</ContainedActionBtn>
-            <ContainedActionBtn>Add to Watchlist</ContainedActionBtn>
+            {isWatched !== -1 ? (
+              <ContainedActionBtn
+                handleClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dispatch({ type: "REMOVE_FROM_WATCH", payload: getMovie.id });
+                }}
+              >
+                Remove from Watchlist
+              </ContainedActionBtn>
+            ) : (
+              <ContainedActionBtn
+                handleClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dispatch({ type: "ADD_TO_WATCH", payload: getMovie.id });
+                }}
+              >
+                Add to Watchlist
+              </ContainedActionBtn>
+            )}
           </div>
         </div>
       </div>
