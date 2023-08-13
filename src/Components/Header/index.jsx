@@ -19,8 +19,8 @@ const Header = () => {
           inputPlaceholder="Seach Movies by title, cast and director..."
         />
         <div className="flex gap-4">
-          <NavLink>Movies</NavLink>
-          <NavLink>Watch List</NavLink>
+          <NavLink to="/">Movies</NavLink>
+          <NavLink to="/watchList">Watch List</NavLink>
           <NavLink>Starred Movies</NavLink>
         </div>
       </div>

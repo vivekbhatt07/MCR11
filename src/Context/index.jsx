@@ -5,6 +5,7 @@ const DataContext = createContext();
 
 const InitialState = {
   moviesList: movies,
+  watchList: [],
   category: "",
   year: "",
   rating: "",
@@ -27,6 +28,25 @@ const DataReducer = (state, action) => {
     }
     case "ADD_MOVIE": {
       return { ...state, moviesList: [...state.moviesList, action.payload] };
+    }
+    case "ADD_TO_WATCH": {
+      return {
+        ...state,
+        watchList: [
+          ...state.watchList,
+          ...state.moviesList.filter((currentMovie) => {
+            return currentMovie.id == action.payload;
+          }),
+        ],
+      };
+    }
+    case "REMOVE_FROM_WATCH": {
+      return {
+        ...state,
+        watchList: state.watchList.filter((currentMovie) => {
+          return currentMovie.id !== action.payload;
+        }),
+      };
     }
   }
 };
